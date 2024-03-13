@@ -55,16 +55,16 @@ except AttributeError as e:
 # patching a class that is used in a method of another class, you will not be able to control the
 # method of the class that you are patching. You will only control the class that you are patching.
 from unittest.mock import patch
-import example_scripts
+import mock_and_magicmock
 @patch('example_scripts.ProductionClass')
 def test(mock_class):
-    a = example_scripts.ProductionClass()
-    assert mock_class is example_scripts.ProductionClass
+    a = mock_and_magicmock.ProductionClass()
+    assert mock_class is mock_and_magicmock.ProductionClass
     assert mock_class.called
     a.method() # <- This will not call the method of the class 'ProductionClass' since we mocked the entire class.
 
 def non_test():
-    a = example_scripts.ProductionClass()
+    a = mock_and_magicmock.ProductionClass()
     a.method() # <- This will call the method of the class 'ProductionClass'
 
 # test()
@@ -117,5 +117,3 @@ mock = MagicMock()
 mock.__str__.return_value = 'foobarbaz' # <- This will work since the MagicMock object
                                         # implements a default behavior for the __str__ method.
 print("mock.__str__():", mock.__str__())
-
-# Auto-speccing feature
